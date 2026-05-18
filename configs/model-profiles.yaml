@@ -1,0 +1,54 @@
+# Lightweight local AI profile presets for Apple Silicon.
+# Goal: keep RAM/disk usage moderate while preserving quality.
+
+profiles:
+  minimal:
+    description: "Smallest footprint for UI + basic semantic memory"
+    llm:
+      provider: ollama
+      model: qwen2.5:3b
+      usage: "chat_summaries"
+    embedding:
+      provider: sentence-transformers
+      model: sentence-transformers/all-MiniLM-L6-v2
+      usage: "semantic_index"
+    vision:
+      enabled: false
+    limits:
+      max_context_tokens: 4096
+      max_batch_size: 8
+
+  balanced:
+    description: "Recommended default for Mac mini/MacBook Air M-series"
+    llm:
+      provider: ollama
+      model: qwen2.5:7b
+      usage: "chat_summaries_entity_extraction"
+    embedding:
+      provider: sentence-transformers
+      model: BAAI/bge-small-en-v1.5
+      usage: "semantic_index"
+    vision:
+      enabled: false
+    limits:
+      max_context_tokens: 8192
+      max_batch_size: 16
+
+  multimodal_light:
+    description: "Text-first + optional lightweight vision for screenshots/files"
+    llm:
+      provider: ollama
+      model: qwen2.5:7b
+      usage: "core_text_reasoning"
+    embedding:
+      provider: sentence-transformers
+      model: sentence-transformers/all-MiniLM-L6-v2
+      usage: "semantic_index"
+    vision:
+      enabled: true
+      provider: ollama
+      model: qwen2.5vl:3b
+      usage: "image_captioning_ocr"
+    limits:
+      max_context_tokens: 8192
+      max_batch_size: 12

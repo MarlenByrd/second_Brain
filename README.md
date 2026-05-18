@@ -127,3 +127,18 @@ docker compose -f infra/docker/docker-compose.yml logs -f
 ```
 
 Откройте в браузере: `http://localhost:4173`
+
+
+## Lightweight AI профили (чтобы не съедать SSD/RAM)
+Для запуска нескольких маленьких локальных "ИИ-агентов" (вместо одной тяжелой модели):
+
+```bash
+./scripts/setup_light_models.sh balanced
+```
+
+Доступные профили:
+- `minimal` — минимальный размер моделей
+- `balanced` — рекомендованный
+- `multimodal_light` — текст + легкая vision-модель
+
+Детали: `docs/lightweight-ai-strategy.md`, `configs/model-profiles.yaml`.
