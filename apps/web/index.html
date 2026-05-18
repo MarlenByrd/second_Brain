@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Second Brain — Local UI</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin:0; font-family: Inter, system-ui, sans-serif; background: radial-gradient(circle at top,#1f2544,#0b1020 55%); color:#e5e7eb; }
+    .wrap{ max-width:1000px; margin:0 auto; padding:32px; }
+    .card{ background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:16px; padding:20px; backdrop-filter: blur(10px); margin-bottom:16px; }
+    h1{ margin:0 0 8px; }
+    .pill{ display:inline-block; padding:6px 10px; border-radius:999px; background:#312e81; margin-right:8px; }
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+    .node{ padding:10px; border-radius:12px; background:#111827; border:1px solid #374151; }
+    input{ width:100%; padding:10px; border-radius:10px; border:1px solid #4b5563; background:#0f172a; color:#fff; }
+    button{ margin-top:10px; padding:10px 14px; border-radius:10px; border:none; background:#2563eb; color:#fff; cursor:pointer; }
+    #out{ margin-top:12px; white-space:pre-wrap; color:#c7d2fe; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Second Brain — Local Interface</h1>
+      <p>Локальный UI запущен без Docker. Это стартовая панель для MVP.</p>
+      <span class="pill">Offline-first</span><span class="pill">Local-only</span><span class="pill">Prototype</span>
+    </div>
+
+    <div class="card">
+      <h2>Neural Memory Preview</h2>
+      <div class="grid">
+        <div class="node">👤 Alex<br/>Startup / Berlin</div>
+        <div class="node">💬 Telegram chat<br/>Relocation ideas</div>
+        <div class="node">📌 Topic cluster<br/>Career / Germany</div>
+        <div class="node">🧠 Memory score<br/>0.82 (high)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>AI Search (Mock)</h2>
+      <input id="q" placeholder="О чем я говорил с Alex про стартап?" />
+      <button onclick="runSearch()">Искать</button>
+      <div id="out"></div>
+    </div>
+  </div>
+
+  <script>
+    function runSearch(){
+      const q=document.getElementById('q').value.trim();
+      const out=document.getElementById('out');
+      if(!q){ out.textContent='Введите запрос.'; return; }
+      out.textContent = `Запрос: ${q}\n\n[demo] Найдены связанные воспоминания:\n1) Chat with Alex: startup metrics\n2) Berlin relocation discussion\n3) Notes: visa + cost estimates`;
+    }
+  </script>
+</body>
+</html>

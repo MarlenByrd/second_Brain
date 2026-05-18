@@ -25,6 +25,8 @@
 ./scripts/bootstrap.sh
 ```
 
+> Если Docker не установлен (ошибка `docker: command not found`), `bootstrap.sh` автоматически запустит локальный web-интерфейс на `http://localhost:4173`.
+
 Проверка статуса:
 ```bash
 docker compose -f infra/docker/docker-compose.yml ps
@@ -116,3 +118,37 @@ docker compose -f infra/docker/docker-compose.yml logs -f
 - Добавить API-слой между ingestion -> AI pipeline -> storage.
 - Добавить миграции БД и интеграционные тесты.
 - Перевести прототипы в единый локальный daemon workflow.
+
+
+## Быстрый старт UI без Docker
+Если вам нужен сразу интерфейс (без БД/моделей), запустите:
+```bash
+./scripts/run_ui.sh
+```
+
+Откройте в браузере: `http://localhost:4173`
+
+
+## Lightweight AI профили (чтобы не съедать SSD/RAM)
+Для запуска нескольких маленьких локальных "ИИ-агентов" (вместо одной тяжелой модели):
+
+```bash
+./scripts/setup_light_models.sh balanced apply
+```
+
+Доступные профили:
+- `minimal` — минимальный размер моделей
+- `balanced` — рекомендованный
+- `multimodal_light` — текст + легкая vision-модель
+
+Детали: `docs/lightweight-ai-strategy.md`, `configs/model-profiles.yaml`.
+
+Полезные команды:
+```bash
+# проверить установленные модели профиля
+./scripts/setup_light_models.sh balanced status
+
+# удалить лишние qwen-модели и освободить диск
+./scripts/setup_light_models.sh balanced prune
+```
+
